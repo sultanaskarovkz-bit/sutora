@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>SUTORA - Дверная фурнитура премиум-класса в Казахстане | STR SUTORA с 2002 года</title>
+<meta name="description" content="Ручки, замки, петли, сердцевины и доводчики STR SUTORA. Итальянские технологии, гарантия до 10 лет. Магазины в Алматы, Астане, Шымкенте, Актобе. Доставка по Казахстану.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EFEBE1;
+  --paper-2:#E6E0D2;
+  --ink:#191A1E;
+  --ink-2:#101114;
+  --ink-3:#1E2026;
+  --mute:#6E6A5F;
+  --mute-d:#9A9FA9;
+  --brass:#A9812F;
+  --brass-2:#C8A15A;
+  --brass-light:#E9D4A0;
+  --bad:#C15242;
+  --line:rgba(25,26,30,.16);
+  --line-d:rgba(233,212,160,.2);
+  --wa:#1eb457;
+  --r:20px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Manrope',system-ui,sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.55;
+  overflow-x:hidden;
+}
+h1,h2,h3{font-family:'Unbounded',sans-serif;font-weight:500;letter-spacing:-.01em}
+.mono{font-family:'JetBrains Mono',monospace}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.wrap{width:min(1100px,100%);margin:0 auto;padding:0 20px;position:relative;z-index:2}
+
+/* миллиметровая сетка на светлых секциях */
+.grid-bg{position:relative}
+.grid-bg::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background-image:
+    linear-gradient(rgba(25,26,30,.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(25,26,30,.045) 1px,transparent 1px);
+  background-size:28px 28px}
+
+/* ---------- scroll progress ---------- */
+#progress{position:fixed;top:0;left:0;height:3px;width:0;z-index:130;
+  background:linear-gradient(90deg,var(--brass),var(--brass-light));
+  box-shadow:0 1px 6px rgba(169,129,47,.5)}
+
+/* ---------- header ---------- */
+header{position:fixed;top:0;left:0;right:0;z-index:120;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 20px;transition:.35s}
+header.scrolled{background:rgba(239,235,225,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+header.on-dark:not(.scrolled){color:var(--paper)}
+.logo{font-family:'Unbounded';font-size:1.05rem;font-weight:600;letter-spacing:.14em}
+.logo em{font-style:normal;color:var(--brass)}
+.logo small{display:block;font-family:'JetBrains Mono';font-size:.52rem;font-weight:500;letter-spacing:.42em;color:var(--mute)}
+header.on-dark:not(.scrolled) .logo small{color:var(--mute-d)}
+.hbtn{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:.82rem;
+  border:1.5px solid currentColor;border-radius:99px;padding:9px 16px;transition:.25s}
+.hbtn:active{transform:scale(.96)}
+.hbtn svg{width:16px;height:16px;fill:var(--wa)}
+
+/* ---------- чертёжные элементы ---------- */
+.crosshair{position:absolute;width:15px;height:15px;pointer-events:none;opacity:.65}
+.crosshair::before,.crosshair::after{content:"";position:absolute;background:var(--ink)}
+.crosshair::before{left:50%;top:0;bottom:0;width:1px;transform:translateX(-50%)}
+.crosshair::after{top:50%;left:0;right:0;height:1px;transform:translateY(-50%)}
+.dim{position:absolute;font-family:'JetBrains Mono';font-size:.58rem;letter-spacing:.14em;color:var(--mute);
+  display:flex;align-items:center;gap:8px;white-space:nowrap}
+.dim .ln{display:block;background:var(--ink);opacity:.4}
+.dim.v{flex-direction:column;writing-mode:vertical-rl}
+.dim.v .ln{width:1px;flex:1;min-height:34px}
+.dim.h .ln{height:1px;flex:1;min-width:34px}
+.tick{position:relative}
+.tick::before,.tick::after{content:"";position:absolute;width:7px;height:1px;background:var(--ink);opacity:.4}
+
+/* ---------- hero ---------- */
+.hero{position:relative;min-height:100svh;padding:104px 0 46px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden}
+.hero .toprow{font-family:'JetBrains Mono';font-size:.6rem;letter-spacing:.22em;color:var(--mute);
+  display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:22px;
+  opacity:0;animation:fadeUp .8s .2s forwards}
+.arch-stage{position:relative;margin:0 auto;width:min(78vw,340px)}
+.arch{position:relative;border-radius:999px 999px 22px 22px;overflow:hidden;aspect-ratio:3/4.1;
+  border:1.5px solid var(--ink);
+  clip-path:inset(0 0 100% 0 round 999px 999px 22px 22px);
+  animation:archOpen 1.3s .45s cubic-bezier(.65,0,.15,1) forwards}
+@keyframes archOpen{to{clip-path:inset(0 0 0 0 round 999px 999px 22px 22px)}}
+.arch img{width:100%;height:100%;object-fit:cover;transform:scale(1.15);animation:archImg 1.6s .45s cubic-bezier(.3,.6,.2,1) forwards;will-change:transform}
+@keyframes archImg{to{transform:scale(1)}}
+.arch::after{content:"";position:absolute;inset:0;border-radius:inherit;
+  box-shadow:inset 0 -60px 70px -40px rgba(16,17,20,.55)}
+/* выноски вокруг арки */
+.arch-stage .dim.left{left:-16px;top:14%;bottom:14%;transform:translateX(-100%)}
+.arch-stage .dim.bottom{left:8%;right:8%;bottom:-14px;transform:translateY(100%)}
+.arch-stage .note{position:absolute;right:-8px;top:9%;transform:translateX(100%);
+  font-family:'JetBrains Mono';font-size:.56rem;letter-spacing:.1em;color:var(--mute);max-width:86px;line-height:1.7;text-align:left}
+.arch-stage .note::before{content:"";position:absolute;left:-26px;top:8px;width:20px;height:1px;background:var(--ink);opacity:.4}
+.arch-stage .note b{color:var(--brass);font-weight:700}
+.arch-stage .ch1{top:-7px;left:-7px}
+.arch-stage .ch2{bottom:-7px;right:-7px}
+/* вращающаяся розетка-ручка */
+.dial{position:absolute;z-index:5;left:-26px;bottom:34px;width:74px;height:74px;border-radius:50%;
+  background:var(--paper);border:1.5px solid var(--ink);display:grid;place-items:center;
+  box-shadow:6px 8px 0 rgba(25,26,30,.12)}
+.dial svg{width:56px;height:56px;will-change:transform}
+.dial .txt{fill:none}
+.dial text{font-family:'JetBrains Mono';font-size:7.4px;letter-spacing:.22em;fill:var(--ink)}
+.dial .handle{fill:var(--brass)}
+.hero h1{font-size:clamp(2rem,9.4vw,4.6rem);line-height:1.02;margin-top:26px;text-transform:uppercase;font-weight:600}
+.hero h1 .row{display:block;overflow:hidden}
+.hero h1 .row span{display:block;transform:translateY(110%);animation:riseUp .9s cubic-bezier(.2,.7,.2,1) forwards}
+.hero h1 .row:nth-child(1) span{animation-delay:.55s}
+.hero h1 .row:nth-child(2) span{animation-delay:.68s}
+.hero h1 .row:nth-child(3) span{animation-delay:.81s}
+.hero h1 .out{color:transparent;-webkit-text-stroke:1.5px var(--ink)}
+.hero h1 .gold{color:var(--brass)}
+@keyframes riseUp{to{transform:none}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.hero-foot{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:24px;opacity:0;animation:fadeUp .8s 1.15s forwards}
+.hero-foot p{font-size:.92rem;color:var(--mute);max-width:34ch;flex:1 1 240px}
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:800;font-size:.95rem;
+  padding:16px 26px;border-radius:99px;transition:.25s;border:none;cursor:pointer;font-family:'Manrope';overflow:hidden}
+.btn:active{transform:scale(.97)}
+.btn-ink{color:var(--paper);background:var(--ink);box-shadow:0 12px 26px -10px rgba(25,26,30,.5)}
+.btn-ink::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:36%;
+  background:linear-gradient(100deg,transparent,rgba(233,212,160,.45),transparent);
+  transform:skewX(-20deg);animation:shine 3.6s infinite}
+@keyframes shine{0%,55%{left:-60%}100%{left:135%}}
+.btn-wa{color:var(--ink);border:1.5px solid var(--ink);background:transparent}
+.btn-wa svg{width:18px;height:18px;fill:var(--wa)}
+
+/* ---------- общие секции ---------- */
+section{padding:76px 0}
+.sec-dark{background:var(--ink-2);color:var(--paper)}
+.sec-dark .kicker{color:var(--brass-light)}
+.sec-dark .kicker::before{background:var(--brass-2)}
+.sec-dark .sub{color:var(--mute-d)}
+.kicker{font-family:'JetBrains Mono';font-size:.62rem;font-weight:500;letter-spacing:.3em;text-transform:uppercase;color:var(--brass);margin-bottom:14px;display:flex;align-items:center;gap:10px}
+.kicker::before{content:"";width:22px;height:1px;background:var(--brass)}
+.kicker .idx{margin-left:auto;opacity:.55}
+.h2{font-size:clamp(1.5rem,5.6vw,2.6rem);line-height:1.14;margin-bottom:14px;text-transform:uppercase;font-weight:600}
+.h2 .out{color:transparent;-webkit-text-stroke:1.3px currentColor;opacity:.85}
+.sub{color:var(--mute);max-width:52ch;font-size:.95rem}
+
+/* ---------- reveal ---------- */
+.rv{opacity:0;transform:translateY(30px);transition:opacity .8s cubic-bezier(.2,.6,.2,1),transform .8s cubic-bezier(.2,.6,.2,1)}
+.rv.on{opacity:1;transform:none}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
+.rv-l{opacity:0;transform:translateX(-34px);transition:.8s cubic-bezier(.2,.6,.2,1)}
+.rv-r{opacity:0;transform:translateX(34px);transition:.8s cubic-bezier(.2,.6,.2,1)}
+.rv-l.on,.rv-r.on{opacity:1;transform:none}
+
+/* ---------- stats (тёмная лента) ---------- */
+.stats-band{padding:40px 0;border-top:1.5px solid var(--ink)}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:0}
+.stat{padding:22px 16px;border-bottom:1px solid var(--line-d);position:relative}
+.stat:nth-child(odd){border-right:1px solid var(--line-d)}
+.stat:nth-child(3),.stat:nth-child(4){border-bottom:none}
+.stat .n{font-family:'Unbounded';font-size:clamp(1.9rem,8vw,3rem);font-weight:600;color:var(--brass-light);line-height:1}
+.stat .n i{font-style:normal}
+.stat .n em{font-style:normal;font-size:.5em;vertical-align:.6em;color:var(--brass-2)}
+.stat .t{font-family:'JetBrains Mono';font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mute-d);margin-top:10px}
+
+/* ---------- catalog ---------- */
+.cat-grid{display:grid;grid-template-columns:1fr;gap:18px;margin-top:36px}
+.card{position:relative;display:block;border:1.5px solid var(--ink);border-radius:var(--r);
+  background:#fff;overflow:hidden;transition:transform .35s,box-shadow .35s;
+  box-shadow:7px 9px 0 rgba(25,26,30,.1)}
+.card:hover{transform:translate(-3px,-3px);box-shadow:12px 14px 0 rgba(25,26,30,.14)}
+.card .art{position:absolute;top:14px;left:16px;z-index:3;font-family:'JetBrains Mono';font-size:.6rem;
+  letter-spacing:.2em;color:var(--ink);background:var(--paper);border:1px solid var(--ink);
+  border-radius:99px;padding:5px 11px}
+.card .tag{position:absolute;top:14px;right:16px;z-index:3;font-family:'JetBrains Mono';font-size:.58rem;font-weight:700;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--paper);background:var(--ink);padding:6px 11px;border-radius:99px}
+.card .ph{height:216px;overflow:hidden;background:#e7e3da;position:relative}
+.card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.2,.6,.2,1)}
+.card:hover .ph img{transform:scale(1.06)}
+.card .ph::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1.5px;background:var(--ink)}
+.card .body{padding:17px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.card h3{font-size:1.02rem;font-weight:500}
+.card .price{font-family:'JetBrains Mono';font-size:.68rem;color:var(--mute);margin-top:5px;letter-spacing:.04em}
+.card .price b{color:var(--brass);font-weight:700}
+.card .go{flex:none;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;
+  background:var(--ink);color:var(--brass-light);transition:.3s}
+.card .go svg{width:19px;height:19px;transition:transform .3s}
+.card:hover .go svg{transform:rotate(-45deg)}
+.card:active .go{transform:scale(.92)}
+
+/* ---------- compare (тёмная) ---------- */
+.cmp{margin-top:36px;border:1px solid var(--line-d);border-radius:var(--r);overflow:hidden;background:var(--ink-3)}
+.cmp-head{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--line-d)}
+.cmp-head div{padding:15px 14px;text-align:center;font-family:'JetBrains Mono';font-size:.66rem;letter-spacing:.18em;text-transform:uppercase}
+.cmp-head .a{color:var(--mute-d)}
+.cmp-head .b{color:var(--ink-2);background:linear-gradient(120deg,var(--brass-light),var(--brass-2));font-weight:700}
+.cmp-row{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid rgba(255,255,255,.06);
+  opacity:0;transform:translateY(16px);transition:.6s cubic-bezier(.2,.6,.2,1)}
+.cmp-row:last-child{border-bottom:none}
+.cmp.on .cmp-row{opacity:1;transform:none}
+.cmp.on .cmp-row:nth-child(2){transition-delay:.1s}
+.cmp.on .cmp-row:nth-child(3){transition-delay:.22s}
+.cmp.on .cmp-row:nth-child(4){transition-delay:.34s}
+.cmp.on .cmp-row:nth-child(5){transition-delay:.46s}
+.cmp-cell{padding:16px 14px;font-size:.83rem;display:flex;gap:10px;align-items:flex-start}
+.cmp-cell.a{color:#83878f}
+.cmp-cell.b{color:#efe9db;background:rgba(200,161,90,.07)}
+.cmp-cell .i{flex:none;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;margin-top:1px}
+.cmp-cell.a .i{background:rgba(193,82,66,.18);color:#E08A7B}
+.cmp-cell.b .i{background:rgba(200,161,90,.22);color:var(--brass-light)}
+.cmp-cell svg{width:11px;height:11px;stroke:currentColor;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.cmp-note{margin-top:16px;font-size:.85rem;color:var(--mute-d)}
+.cmp-note b{color:var(--brass-light)}
+
+/* ---------- why + layers ---------- */
+.why{display:grid;gap:16px;margin-top:36px}
+.why-item{display:flex;gap:16px;border:1.5px solid var(--ink);border-radius:var(--r);
+  padding:20px 18px;background:#fff;box-shadow:6px 8px 0 rgba(25,26,30,.08)}
+.why-item .ic{flex:none;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;
+  background:var(--paper-2);border:1px solid var(--ink)}
+.why-item .ic svg{width:22px;height:22px;fill:none;stroke:var(--brass);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.why-item h3{font-size:.98rem;margin-bottom:4px;font-weight:500}
+.why-item p{font-size:.86rem;color:var(--mute)}
+.layers-box{margin-top:36px;border:1.5px solid var(--ink);border-radius:var(--r);
+  padding:26px 20px;background:#fff;position:relative;box-shadow:6px 8px 0 rgba(25,26,30,.08)}
+.layers-box .stamp{position:absolute;top:-13px;right:18px;font-family:'JetBrains Mono';font-size:.58rem;
+  letter-spacing:.18em;background:var(--ink);color:var(--brass-light);padding:6px 12px;border-radius:99px}
+.layers{display:flex;flex-direction:column;gap:7px;margin:20px 0 14px}
+.layer{display:flex;align-items:center;gap:12px}
+.layer .bar{height:13px;border-radius:4px;flex:1;transform:scaleX(0);transform-origin:left;
+  background:linear-gradient(90deg,var(--brass),var(--brass-2) 55%,var(--brass-light));
+  transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.layer:nth-child(odd) .bar{filter:brightness(.8)}
+.layer .lb{font-family:'JetBrains Mono';font-size:.56rem;letter-spacing:.1em;color:var(--mute);width:52px;flex:none}
+.layers-box.on .layer .bar{transform:scaleX(1)}
+.layers-box.on .layer:nth-child(1) .bar{transition-delay:.05s}.layers-box.on .layer:nth-child(2) .bar{transition-delay:.15s}
+.layers-box.on .layer:nth-child(3) .bar{transition-delay:.25s}.layers-box.on .layer:nth-child(4) .bar{transition-delay:.35s}
+.layers-box.on .layer:nth-child(5) .bar{transition-delay:.45s}.layers-box.on .layer:nth-child(6) .bar{transition-delay:.55s}
+.layers-box.on .layer:nth-child(7) .bar{transition-delay:.65s}
+.layers-cap{font-size:.84rem;color:var(--mute)}
+.layers-cap b{color:var(--brass)}
+
+/* ---------- reviews (тёмная) ---------- */
+.rev-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.rev-score{display:flex;align-items:center;gap:12px;margin-top:6px}
+.rev-score .big{font-family:'Unbounded';font-size:2rem;font-weight:600;color:var(--brass-light)}
+.stars{display:flex;gap:3px}
+.stars svg{width:16px;height:16px;fill:var(--brass-2)}
+.rev-score small{font-family:'JetBrains Mono';font-size:.6rem;letter-spacing:.06em;color:var(--mute-d);max-width:17ch;line-height:1.6;text-transform:uppercase}
+.rev-track{display:flex;gap:14px;margin-top:30px;overflow-x:auto;scroll-snap-type:x mandatory;
+  padding:4px 20px 18px;margin-left:-20px;margin-right:-20px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.rev-track::-webkit-scrollbar{display:none}
+.rev{flex:0 0 84%;max-width:340px;scroll-snap-align:center;border-radius:var(--r) var(--r) var(--r) 4px;
+  padding:22px 20px;background:var(--paper);color:var(--ink);position:relative;
+  border:1.5px solid var(--ink);box-shadow:0 14px 30px -14px rgba(0,0,0,.6)}
+.rev::before{content:"“";position:absolute;top:4px;right:18px;font-family:'Unbounded';font-size:3rem;
+  color:rgba(169,129,47,.25);line-height:1}
+.rev .stars{margin-bottom:12px}
+.rev .stars svg{fill:var(--brass)}
+.rev p{font-size:.88rem;color:#3c3a33;min-height:96px}
+.rev .who{display:flex;align-items:center;gap:12px;margin-top:16px;border-top:1px dashed var(--line);padding-top:14px}
+.rev .ava{flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
+  font-weight:800;font-size:.85rem;color:var(--paper);background:var(--ink)}
+.rev .who b{display:block;font-size:.86rem}
+.rev .who span{font-family:'JetBrains Mono';font-size:.6rem;color:var(--mute);letter-spacing:.04em}
+.rev-dots{display:flex;gap:7px;justify-content:center;margin-top:6px}
+.rev-dots i{width:7px;height:7px;border-radius:99px;background:rgba(239,235,225,.25);transition:.3s}
+.rev-dots i.on{width:22px;background:var(--brass-2)}
+
+/* ---------- steps ---------- */
+.steps{position:relative;margin-top:40px;display:grid;gap:28px}
+.steps::before{content:"";position:absolute;left:23px;top:10px;bottom:10px;width:2px;
+  background:repeating-linear-gradient(180deg,var(--ink) 0 6px,transparent 6px 12px);opacity:.45;
+  transform:scaleY(0);transform-origin:top;transition:1.2s .2s cubic-bezier(.2,.7,.2,1)}
+.steps.on::before{transform:scaleY(1)}
+.step{display:flex;gap:18px;position:relative}
+.step .num{flex:none;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;z-index:2;
+  font-family:'JetBrains Mono';font-weight:700;font-size:.95rem;color:var(--paper);
+  background:var(--ink);border:1.5px solid var(--ink);
+  box-shadow:0 0 0 6px var(--paper),4px 5px 0 6px rgba(25,26,30,.1)}
+.step h3{font-size:1rem;margin:10px 0 4px;font-weight:500}
+.step p{font-size:.86rem;color:var(--mute);max-width:42ch}
+.step p b{color:var(--brass)}
+
+/* ---------- offer ---------- */
+.offer{position:relative;border-radius:26px;border:1.5px solid var(--ink);overflow:hidden;
+  background:var(--ink-2);color:var(--paper);padding:36px 22px;
+  box-shadow:9px 11px 0 rgba(25,26,30,.16)}
+.offer::before{content:"";position:absolute;inset:0;opacity:.5;pointer-events:none;
+  background:radial-gradient(120% 150% at 100% 0%,rgba(200,161,90,.28),transparent 55%)}
+.offer .badge{position:relative;display:inline-block;font-family:'JetBrains Mono';font-size:.62rem;letter-spacing:.22em;
+  color:var(--ink-2);background:linear-gradient(110deg,var(--brass-light),var(--brass-2));
+  padding:8px 14px;border-radius:99px;margin-bottom:18px;font-weight:700;animation:pulseBadge 2.6s infinite}
+@keyframes pulseBadge{0%,100%{box-shadow:0 0 0 0 rgba(200,161,90,.45)}50%{box-shadow:0 0 0 10px rgba(200,161,90,0)}}
+.offer h2{position:relative;font-size:clamp(1.35rem,5.4vw,2.1rem);line-height:1.2;text-transform:none}
+.offer p{position:relative;color:#c9c4b6;margin:12px 0 24px;font-size:.93rem;max-width:44ch}
+.form{position:relative;display:grid;gap:12px}
+.form input{width:100%;padding:16px 18px;border-radius:14px;font-family:'Manrope';font-size:1rem;
+  background:rgba(239,235,225,.06);border:1px solid rgba(239,235,225,.22);color:var(--paper);outline:none;transition:border .25s}
+.form input::placeholder{color:#83878f}
+.form input:focus{border-color:var(--brass-2)}
+.form .btn{width:100%;background:linear-gradient(120deg,var(--brass-light),var(--brass-2) 60%,var(--brass));color:var(--ink-2);border-radius:14px}
+.form .btn::after{content:"";position:absolute;top:0;bottom:0;left:-60%;width:36%;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);
+  transform:skewX(-20deg);animation:shine 3.4s infinite}
+.form .legal{font-size:.66rem;color:#83878f;text-align:center}
+.form .ok{display:none;text-align:center;font-weight:700;color:var(--brass-light);padding:8px 0}
+.trustline{position:relative;display:flex;flex-wrap:wrap;gap:10px 18px;margin-top:20px}
+.trustline span{display:inline-flex;align-items:center;gap:7px;font-family:'JetBrains Mono';font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;color:#b9b3a2}
+.trustline svg{width:15px;height:15px;stroke:var(--brass-2);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+/* ---------- faq ---------- */
+.faq{margin-top:32px;display:grid;gap:12px}
+.qa{border:1.5px solid var(--ink);border-radius:18px;background:#fff;overflow:hidden;box-shadow:5px 6px 0 rgba(25,26,30,.08);transition:box-shadow .3s}
+.qa.open{box-shadow:8px 9px 0 rgba(169,129,47,.22)}
+.qa button{width:100%;display:flex;justify-content:space-between;align-items:center;gap:14px;
+  padding:18px;background:none;border:none;color:var(--ink);font-family:'Manrope';font-weight:700;
+  font-size:.92rem;text-align:left;cursor:pointer}
+.qa .pl{flex:none;width:27px;height:27px;border-radius:50%;border:1.5px solid var(--ink);
+  display:grid;place-items:center;color:var(--ink);transition:transform .35s,background .3s}
+.qa .pl svg{width:12px;height:12px;stroke:currentColor;stroke-width:2.4;fill:none;stroke-linecap:round}
+.qa .ans{max-height:0;overflow:hidden;transition:max-height .45s cubic-bezier(.2,.7,.2,1)}
+.qa .ans p{padding:0 18px 18px;font-size:.86rem;color:var(--mute)}
+.qa.open .pl{transform:rotate(45deg);background:var(--brass-light)}
+
+/* ---------- dealers ---------- */
+.dealer{border:1.5px dashed var(--ink);border-radius:var(--r);padding:24px 20px;
+  display:flex;flex-wrap:wrap;align-items:center;gap:16px;justify-content:space-between;background:var(--paper-2)}
+.dealer h3{font-size:1.05rem;margin-bottom:4px}
+.dealer p{font-size:.85rem;color:var(--mute);max-width:40ch}
+.dealer .btn{background:var(--ink);color:var(--paper)}
+
+/* ---------- contacts (тёмная) ---------- */
+.cities{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:32px}
+.city{border:1px solid var(--line-d);border-radius:var(--r);padding:18px 16px;background:var(--ink-3);position:relative;overflow:hidden}
+.city::before{content:"";position:absolute;top:0;left:0;width:34px;height:34px;
+  border-radius:0 0 999px 0;background:rgba(200,161,90,.14)}
+.city b{font-family:'Unbounded';font-weight:500;font-size:.85rem;color:var(--brass-light);display:block;margin-bottom:5px;position:relative}
+.city span{font-size:.8rem;color:var(--mute-d);position:relative}
+.contact-line{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.soc{display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:.85rem;
+  border:1px solid var(--line-d);border-radius:99px;padding:11px 18px;color:var(--paper);transition:.25s}
+.soc:active{transform:scale(.96)}
+.soc svg{width:17px;height:17px;fill:var(--brass-2)}
+
+footer{background:var(--ink-2);color:#7c8089;padding:26px 0 calc(112px + env(safe-area-inset-bottom));
+  border-top:1px solid var(--line-d);text-align:center;font-family:'JetBrains Mono';font-size:.62rem;letter-spacing:.1em}
+
+/* ---------- sticky bar ---------- */
+.sticky-bar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:118;
+  display:flex;gap:8px;padding:8px;border-radius:22px;
+  background:rgba(25,26,30,.92);backdrop-filter:blur(16px);border:1px solid rgba(233,212,160,.25);
+  transform:translateY(150%);transition:transform .5s cubic-bezier(.2,.7,.2,1);
+  box-shadow:0 18px 40px -12px rgba(0,0,0,.55)}
+.sticky-bar.show{transform:none}
+.sticky-bar a{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;
+  font-weight:800;font-size:.82rem;padding:13px 6px;border-radius:15px;transition:.2s}
+.sticky-bar a:active{transform:scale(.96)}
+.sb-wa{background:var(--wa);color:#08140c;position:relative}
+.sb-wa::before{content:"";position:absolute;inset:0;border-radius:15px;background:var(--wa);
+  animation:waPulse 2.4s infinite;z-index:-1}
+@keyframes waPulse{0%{opacity:.55;transform:scale(1)}70%{opacity:0;transform:scale(1.16)}100%{opacity:0}}
+.sb-call{background:rgba(239,235,225,.1);color:var(--paper);border:1px solid rgba(239,235,225,.16)}
+.sb-lead{background:linear-gradient(120deg,var(--brass-light),var(--brass-2));color:var(--ink-2)}
+.sticky-bar svg{width:17px;height:17px;fill:currentColor;flex:none}
+
+/* ---------- desktop ---------- */
+@media(min-width:760px){
+  .cat-grid{grid-template-columns:repeat(3,1fr)}
+  .stats{grid-template-columns:repeat(4,1fr)}
+  .stat{border-bottom:none!important;border-right:1px solid var(--line-d)}
+  .stat:last-child{border-right:none}
+  .why{grid-template-columns:repeat(2,1fr)}
+  .cities{grid-template-columns:repeat(4,1fr)}
+  .offer{padding:52px 48px}
+  .sticky-bar{left:auto;right:24px;width:400px}
+  .rev{flex-basis:340px}
+  .steps{grid-template-columns:repeat(3,1fr);gap:20px}
+  .steps::before{left:24px;right:24px;top:23px;bottom:auto;width:auto;height:2px;
+    background:repeating-linear-gradient(90deg,var(--ink) 0 6px,transparent 6px 12px);
+    transform:scaleX(0);transform-origin:left}
+  .steps.on::before{transform:scaleX(1)}
+  .step{flex-direction:column}
+  .cmp-cell{font-size:.9rem;padding:20px 22px}
+  .hero{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:30px;padding-top:120px}
+  .hero .wrap-hero{display:contents}
+  .hero-left{order:1;padding-left:max(20px,calc((100vw - 1100px)/2 + 20px))}
+  .arch-wrap{order:2;padding-right:max(20px,calc((100vw - 1100px)/2 + 20px))}
+  .hero .toprow{position:absolute;top:86px;left:max(20px,calc((100vw - 1100px)/2 + 20px));right:max(20px,calc((100vw - 1100px)/2 + 20px))}
+  .arch-stage{width:min(34vw,380px)}
+  .hero h1{font-size:clamp(3rem,5vw,4.6rem)}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  .rv,.rv-l,.rv-r,.cmp-row{opacity:1!important;transform:none!important}
+  .hero h1 .row span,.hero .toprow,.hero-foot{animation:none;opacity:1;transform:none}
+  .arch{clip-path:none;animation:none}
+  .arch img{animation:none;transform:none}
+  .layer .bar{transform:scaleX(1)}
+  .steps::before{transform:none!important}
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<header id="hdr">
+  <a class="logo" href="#top">SUT<em>O</em>RA<small>STR · SINCE 2002</small></a>
+  <a class="hbtn" href="https://api.whatsapp.com/send?phone=77055700101&text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D0%BE%D0%B4%D0%BE%D0%B1%D1%80%D0%B0%D1%82%D1%8C%20%D1%84%D1%83%D1%80%D0%BD%D0%B8%D1%82%D1%83%D1%80%D1%83" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm4.6 14.1c-.2.6-1.2 1.1-1.7 1.2-.5 0-.5.5-3.4-.8-2.9-1.2-4.8-4.1-4.9-4.3-.1-.2-1.1-1.5-1.1-2.8a3 3 0 0 1 1-2.2c.2-.2.5-.3.7-.3h.5c.2 0 .4-.1.6.4l.8 1.8c.1.2.1.4 0 .5-.4.8-.8.8-.6 1.2a6.8 6.8 0 0 0 3.3 2.9c.3.1.5.1.6-.1.1-.2.6-.7.8-1 .2-.2.4-.2.6-.1.2.1 1.4.7 1.7.8.3.1.5.2.6.4 0 .1 0 .6-.2 1.2Z"/></svg>
+    WhatsApp
+  </a>
+</header>
+
+<!-- ============ HERO ============ -->
+<div class="hero grid-bg" id="top">
+  <div class="wrap wrap-hero">
+    <div class="toprow mono">
+      <span>КАТАЛОГ ФУРНИТУРЫ / 2026</span>
+      <span>ALM · AST · SHY · AKT</span>
+    </div>
+
+    <div class="arch-wrap">
+      <div class="arch-stage">
+        <span class="crosshair ch1"></span>
+        <span class="crosshair ch2"></span>
+        <div class="dim v left"><span class="ln"></span>ГАРАНТИЯ ДО 10 ЛЕТ<span class="ln"></span></div>
+        <div class="dim h bottom"><span class="ln"></span>STR SUTORA<span class="ln"></span></div>
+        <div class="note">РУЧКА<br>TIFFANY<br><b>PREMIUM</b><br>7 СЛОЁВ<br>ГАЛЬВАНИКИ</div>
+        <div class="arch">
+          <img id="heroImg" src="https://sutora.kz/wp-content/uploads/2023/07/453a5190-scaled.jpg" alt="Дверная ручка премиум-класса STR SUTORA" fetchpriority="high">
+        </div>
+        <div class="dial" aria-hidden="true">
+          <svg id="dialSvg" viewBox="0 0 100 100">
+            <defs><path id="circ" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"/></defs>
+            <text><textPath href="#circ">SUTORA · ФУРНИТУРА · SUTORA · ФУРНИТУРА ·</textPath></text>
+            <circle cx="50" cy="50" r="16" fill="none" stroke="#191A1E" stroke-width="1.5"/>
+            <rect class="handle" x="46" y="18" width="8" height="26" rx="4"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-left">
+      <h1>
+        <span class="row"><span>Дверная</span></span>
+        <span class="row"><span class="out">фурнитура</span></span>
+        <span class="row"><span>на <span class="gold">десятилетия</span></span></span>
+      </h1>
+      <div class="hero-foot">
+        <p>Ручки, замки, петли и доводчики собственной марки STR SUTORA. С 2002 года.</p>
+        <a class="btn btn-ink" href="#lead">Подобрать со скидкой 10%</a>
+        <a class="btn btn-wa" href="#catalog">Каталог и цены</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ STATS ============ -->
+<div class="stats-band sec-dark">
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat"><div class="n"><i data-count="24"></i></div><div class="t">года на рынке КЗ</div></div>
+      <div class="stat"><div class="n"><i data-count="4"></i></div><div class="t">фирменных магазина</div></div>
+      <div class="stat"><div class="n"><i data-count="10"></i><em>лет</em></div><div class="t">гарантия на механизм</div></div>
+      <div class="stat"><div class="n"><i data-count="500"></i><em>+</em></div><div class="t">позиций в наличии</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ CATALOG ============ -->
+<section id="catalog" class="grid-bg">
+  <div class="wrap">
+    <div class="kicker rv">Каталог<span class="idx">01 / 07</span></div>
+    <h2 class="h2 rv d1">Всё для двери<br><span class="out">в одном месте</span></h2>
+    <p class="sub rv d2">Нажмите на категорию - менеджер подберёт модель, цвет и размер под вашу дверь и назовёт точную цену.</p>
+
+    <div class="cat-grid">
+      <a class="card rv" href="https://api.whatsapp.com/send?phone=77055700101&text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D1%8E%D1%82%20%D0%B4%D0%B2%D0%B5%D1%80%D0%BD%D1%8B%D0%B5%20%D1%80%D1%83%D1%87%D0%BA%D0%B8" target="_blank" rel="noopener">
+        <span class="art">АРТ. 01</span><span class="tag">Хит</span>
+        <div class="ph"><img loading="lazy" src="https://sutora.kz/wp-content/uploads/2023/07/453a5182-700x467.jpg" alt="Дверные ручки STR SUTORA"></div>
+        <div class="body">
+          <div><h3>Ручки</h3><div class="price">ОТ <b>5 000 ₸</b> / ЭКОНОМ - ПРЕМИУМ</div></div>
+          <span class="go"><svg viewBox="0 0 24 24"><path d="M5 12h12m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+      </a>
+
+      <a class="card rv d1" href="https://api.whatsapp.com/send?phone=77055700101&text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D1%8E%D1%82%20%D0%B7%D0%B0%D0%BC%D0%BA%D0%B8" target="_blank" rel="noopener">
+        <span class="art">АРТ. 02</span>
+        <div class="ph"><img loading="lazy" src="https://sutora.kz/wp-content/uploads/2023/10/453a4776-700x467.jpg" alt="Замки STR SUTORA"></div>
+        <div class="body">
+          <div><h3>Замки</h3><div class="price">ОТ <b>3 990 ₸</b> / МЕЖКОМНАТНЫЕ И ВХОДНЫЕ</div></div>
+          <span class="go"><svg viewBox="0 0 24 24"><path d="M5 12h12m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+      </a>
+
+      <a class="card rv d2" href="https://api.whatsapp.com/send?phone=77055700101&text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D1%8E%D1%82%20%D0%BF%D0%B5%D1%82%D0%BB%D0%B8" target="_blank" rel="noopener">
+        <span class="art">АРТ. 03</span>
+        <div class="ph"><img loading="lazy" src="https://sutora.kz/wp-content/uploads/2023/10/453a4907-700x467.jpg" alt="Скрытые петли STR SUTORA"></div>
+        <div class="body">
+          <div><h3>Петли</h3><div class="price">ОТ <b>2 090 ₸</b> / СКРЫТЫЕ, НЕМЕЦКАЯ СТАЛЬ</div></div>
+          <span class="go"><svg viewBox="0 0 24 24"><path d="M5 12h12m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+      </a>
+
+      <a class="card rv" href="https://api.whatsapp.com/send?phone=77055700101&text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D1%8E%D1%82%20%D1%81%D0%B5%D1%80%D0%B4%D1%86%D0%B5%D0%B2%D0%B8%D0%BD%D1%8B" target="_blank" rel="noopener">
+        <span class="art">АРТ. 04</span>
+        <div class="ph"><img loading="lazy" src="https://sutora.kz/wp-content/uploads/2023/10/453a5099-700x467.jpg" alt="Сердцевины STR SUTORA"></div>
+        <div class="body">
+          <div><h3>Сердцевины</h3><div class="price">ОТ <b>2 990 ₸</b> / ВКЛЮЧАЯ МИКРОСКОПИЧЕСКИЕ</div></div>
+          <span class="go"><svg viewBox="0 0 24 24"><path d="M5 12h12m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+      </a>
+
+      <a class="card rv d1" href="https://api.whatsapp.com/send?phone=77055700101&text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D1%8E%D1%82%20%D1%81%D1%82%D0%BE%D0%BF%D0%BE%D1%80%D1%8B" target="_blank" rel="noopener">
+        <span class="art">АРТ. 05</span>
+        <div class="ph"><img loading="lazy" src="https://sutora.kz/wp-content/uploads/2023/10/img_2758-700x933.jpg" alt="Магнитный скрытый стопор STR SUTORA" style="object-position:center 30%"></div>
+        <div class="body">
+          <div><h3>Стопоры</h3><div class="price">ОТ <b>1 990 ₸</b> / МАГНИТНЫЕ СКРЫТЫЕ</div></div>
+          <span class="go"><svg viewBox="0 0 24 24"><path d="M5 12h12m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+      </a>
+
+      <a class="card rv d2" href="https://api.whatsapp.com/send?phone=77055700101&text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D1%8E%D1%82%20%D0%B4%D0%BE%D0%B2%D0%BE%D0%B4%D1%87%D0%B8%D0%BA%D0%B8" target="_blank" rel="noopener">
+        <span class="art">АРТ. 06</span>
+        <div class="ph"><img loading="lazy" src="https://sutora.kz/wp-content/uploads/2023/10/453a5643-700x467.jpg" alt="Доводчики STR SUTORA"></div>
+        <div class="body">
+          <div><h3>Доводчики</h3><div class="price">ОТ <b>6 990 ₸</b> / 500 000 ЦИКЛОВ</div></div>
+          <span class="go"><svg viewBox="0 0 24 24"><path d="M5 12h12m0 0-5-5m5 5-5 5" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMPARE ============ -->
+<section class="sec-dark">
+  <div class="wrap">
+    <div class="kicker rv">Считайте сами<span class="idx">02 / 07</span></div>
+    <h2 class="h2 rv d1">Дешёвая фурнитура<br><span class="out">обходится дороже</span></h2>
+    <p class="sub rv d2">Ручка с базара живёт год-полтора. Потом - снова деньги, снова мастер, снова следы на двери.</p>
+
+    <div class="cmp rv" id="cmpBox">
+      <div class="cmp-head">
+        <div class="a">Масс-маркет</div>
+        <div class="b">STR SUTORA</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-cell a"><span class="i"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></span>Покрытие темнеет и стирается за 6-12 месяцев</div>
+        <div class="cmp-cell b"><span class="i"><svg viewBox="0 0 24 24"><path d="M5 13l4 4 10-10"/></svg></span>7 слоёв гальваники, 2 года гарантии на покрытие</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-cell a"><span class="i"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></span>Механизм разбалтывается, ручка провисает</div>
+        <div class="cmp-cell b"><span class="i"><svg viewBox="0 0 24 24"><path d="M5 13l4 4 10-10"/></svg></span>До 10 лет гарантии на механизм</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-cell a"><span class="i"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></span>Дверь скрипит и проседает на петлях</div>
+        <div class="cmp-cell b"><span class="i"><svg viewBox="0 0 24 24"><path d="M5 13l4 4 10-10"/></svg></span>Немецкая сталь, 3D-регулировка, 200 000 циклов</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-cell a"><span class="i"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></span>Если сломалось - ищите замену сами</div>
+        <div class="cmp-cell b"><span class="i"><svg viewBox="0 0 24 24"><path d="M5 13l4 4 10-10"/></svg></span>Гарантийная замена и подбор в WhatsApp</div>
+      </div>
+    </div>
+    <p class="cmp-note rv d1">Итог за 10 лет: 4-5 дешёвых ручек против <b>одной SUTORA</b>. Экономия - мнимая.</p>
+  </div>
+</section>
+
+<!-- ============ WHY + LAYERS ============ -->
+<section class="grid-bg">
+  <div class="wrap">
+    <div class="kicker rv">Что вы получаете<span class="idx">03 / 07</span></div>
+    <h2 class="h2 rv d1">Не просто ручка -<br><span class="out">спокойствие на годы</span></h2>
+
+    <div class="why">
+      <div class="why-item rv-l">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <div><h3>Гарантия до 10 лет</h3><p>2 года на покрытие, до 10 лет на механизм ручки, 3 года на петли и замки. Письменно, а не на словах.</p></div>
+      </div>
+      <div class="why-item rv-r">
+        <div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3.5 9h17M3.5 15h17M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18"/></svg></div>
+        <div><h3>Итальянские технологии</h3><p>Производство на новейшем оборудовании, петли из немецкой легированной стали.</p></div>
+      </div>
+      <div class="why-item rv-l">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M4 17V7l8-4 8 4v10l-8 4-8-4z"/><path d="M4 7l8 4 8-4M12 11v10"/></svg></div>
+        <div><h3>Всё в наличии, в один тон</h3><p>Каждая модель в 3-7 цветах: ручки, петли, стопоры и замки подберём в единой отделке.</p></div>
+      </div>
+      <div class="why-item rv-r">
+        <div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></div>
+        <div><h3>Оплата как удобно</h3><p>Наличный и безналичный расчёт, работаем с частными клиентами и юрлицами.</p></div>
+      </div>
+    </div>
+
+    <div class="layers-box rv" id="layersBox">
+      <span class="stamp">ПАСПОРТ ИЗДЕЛИЯ</span>
+      <div class="kicker" style="margin-bottom:6px">Секрет покрытия</div>
+      <h3 style="font-size:1.05rem">7 слоёв гальваники в премиум-ручках</h3>
+      <div class="layers" aria-hidden="true">
+        <div class="layer"><span class="lb mono">СЛОЙ 07</span><span class="bar"></span></div>
+        <div class="layer"><span class="lb mono">СЛОЙ 06</span><span class="bar"></span></div>
+        <div class="layer"><span class="lb mono">СЛОЙ 05</span><span class="bar"></span></div>
+        <div class="layer"><span class="lb mono">СЛОЙ 04</span><span class="bar"></span></div>
+        <div class="layer"><span class="lb mono">СЛОЙ 03</span><span class="bar"></span></div>
+        <div class="layer"><span class="lb mono">СЛОЙ 02</span><span class="bar"></span></div>
+        <div class="layer"><span class="lb mono">СЛОЙ 01</span><span class="bar"></span></div>
+      </div>
+      <p class="layers-cap">Поэтому покрытие <b>не стирается и не темнеет</b> - ручка выглядит новой годами, а не до первой уборки.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REVIEWS ============ -->
+<section class="sec-dark">
+  <div class="wrap">
+    <div class="rev-head">
+      <div>
+        <div class="kicker rv">Отзывы<span class="idx">04 / 07</span></div>
+        <h2 class="h2 rv d1" style="margin-bottom:0">Нам доверяют<br><span class="out">двери своих домов</span></h2>
+      </div>
+      <div class="rev-score rv d2">
+        <span class="big">4.9</span>
+        <div>
+          <div class="stars" aria-label="Рейтинг 4.9 из 5">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8 1.4 7-6.2-3.6L5.8 21l1.4-7L2 9.4l7-.8z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8 1.4 7-6.2-3.6L5.8 21l1.4-7L2 9.4l7-.8z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8 1.4 7-6.2-3.6L5.8 21l1.4-7L2 9.4l7-.8z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8 1.4 7-6.2-3.6L5.8 21l1.4-7L2 9.4l7-.8z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8 1.4 7-6.2-3.6L5.8 21l1.4-7L2 9.4l7-.8z"/></svg>
+          </div>
+          <small>средняя оценка покупателей</small>
+        </div>
+      </div>
+    </div>
+
+    <div class="rev-track rv" id="revTrack">
+      <div class="rev">
+        <div class="stars"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8 1.4 7-6.2-3.6L5.8 21l1.4-7L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8 1.4 7-6.2-3.6L5.8 21l1.4-7L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8 1.4 7-6.2-3.6L5.8 21l1.4-7L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8 1.4 7-6.2-3.6L5.8 21l1.4-7L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8 1.4 7-6.2-3.6L5.8 21l1.4-7L2 9.4l7-.8z"/></svg></div>
+        <p>Брали ручки и скрытые петли на весь дом при ремонте. Через два года ни одна ручка не потемнела, двери закрываются как в первый день.</p>
+        <div class="who"><span class="ava">АС</span><div><b>Айгерим С.</b><span>АЛМАТЫ / РУЧКИ PREMIUM, ПЕТЛИ</span></div></div>
+      </div>
+      <div class="rev">
+        <div class="stars"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8 1.4 7-6.2-3.6L5.8 21l1.4-7L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8 1.4 7-6.2-3.6L5.8 21l1.4-7L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8 1.4 7-6.2-3.6L5.8 21l1.4-7L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8 1.4 7-6.2-3.6L5.8 21l1.4-7L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8 1.4 7-6.2-3.6L5.8 21l1.4-7L2 9.4l7-.8z"/></svg></div>
+        <p>Ставлю двери на объектах уже 7 лет и беру фурнитуру только здесь. По гарантии вопросов не было ни разу, клиенты довольны.</p>
+        <div class="who"><span class="ava">ДК</span><div><b>Дмитрий К.</b><span>АСТАНА / УСТАНОВЩИК ДВЕРЕЙ</span></div></div>
+      </div>
+      <div class="rev">
+        <div class="stars"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8 1.4 7-6.2-3.6L5.8 21l1.4-7L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8 1.4 7-6.2-3.6L5.8 21l1.4-7L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8 1.4 7-6.2-3.6L5.8 21l1.4-7L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8 1.4 7-6.2-3.6L5.8 21l1.4-7L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8 1.4 7-6.2-3.6L5.8 21l1.4-7L2 9.4l7-.8z"/></svg></div>
+        <p>Написала в WhatsApp с фото дверей - за 15 минут подобрали ручки и стопоры в один цвет и посчитали смету. Доставили в Шымкент за 2 дня.</p>
+        <div class="who"><span class="ava">МТ</span><div><b>Мадина Т.</b><span>ШЫМКЕНТ / РУЧКИ, СТОПОРЫ</span></div></div>
+      </div>
+      <div class="rev">
+        <div class="stars"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8 1.4 7-6.2-3.6L5.8 21l1.4-7L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8 1.4 7-6.2-3.6L5.8 21l1.4-7L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8 1.4 7-6.2-3.6L5.8 21l1.4-7L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8 1.4 7-6.2-3.6L5.8 21l1.4-7L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8 1.4 7-6.2-3.6L5.8 21l1.4-7L2 9.4l7-.8z"/></svg></div>
+        <p>Магнитные замки 9050 - топ. Двери закрываются бесшумно, дети хлопают - хоть бы что. Взял ещё доводчик на входную.</p>
+        <div class="who"><span class="ava">ЕЖ</span><div><b>Ерлан Ж.</b><span>АКТОБЕ / ЗАМКИ, ДОВОДЧИК</span></div></div>
+      </div>
+      <div class="rev">
+        <div class="stars"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8 1.4 7-6.2-3.6L5.8 21l1.4-7L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8 1.4 7-6.2-3.6L5.8 21l1.4-7L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8 1.4 7-6.2-3.6L5.8 21l1.4-7L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8 1.4 7-6.2-3.6L5.8 21l1.4-7L2 9.4l7-.8z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.6 7 .8-5.2 4.8 1.4 7-6.2-3.6L5.8 21l1.4-7L2 9.4l7-.8z"/></svg></div>
+        <p>Дизайнер интерьеров, заказываю для клиентов регулярно. Радует, что вся фурнитура есть в одной отделке - от петель до стопоров.</p>
+        <div class="who"><span class="ava">СБ</span><div><b>Салтанат Б.</b><span>АЛМАТЫ / ДИЗАЙНЕР ИНТЕРЬЕРОВ</span></div></div>
+      </div>
+    </div>
+    <div class="rev-dots" id="revDots" aria-hidden="true"></div>
+  </div>
+</section>
+
+<!-- ============ STEPS ============ -->
+<section class="grid-bg">
+  <div class="wrap">
+    <div class="kicker rv">Как заказать<span class="idx">05 / 07</span></div>
+    <h2 class="h2 rv d1">От заявки до двери -<br><span class="out">3 шага</span></h2>
+    <div class="steps rv" id="stepsBox">
+      <div class="step">
+        <span class="num">01</span>
+        <div>
+          <h3>Оставьте заявку</h3>
+          <p>Через форму ниже или сразу в WhatsApp. Можно приложить фото дверей или дизайн-проект.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="num">02</span>
+        <div>
+          <h3>Подбор и смета за 15 минут</h3>
+          <p>Менеджер подберёт модели, цвета и размеры, посчитает точную смету и <b>зафиксирует скидку 10%</b>.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="num">03</span>
+        <div>
+          <h3>Оплата и доставка</h3>
+          <p>Заберите в магазине в 4 городах или получите доставкой <b>в любую точку Казахстана</b>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OFFER / LEAD ============ -->
+<section id="lead" class="grid-bg" style="padding-top:0">
+  <div class="wrap">
+    <div class="offer rv">
+      <span class="badge">СКИДКА 10% / ПЕРВЫЙ ЗАКАЗ</span>
+      <h2>Оставьте заявку - подберём фурнитуру и посчитаем смету</h2>
+      <p>Менеджер свяжется в WhatsApp в течение 15 минут в рабочее время, подберёт модели под ваш интерьер и зафиксирует скидку.</p>
+      <form class="form" id="leadForm">
+        <input type="text" id="fName" placeholder="Ваше имя" autocomplete="name" required>
+        <input type="tel" id="fPhone" placeholder="+7 (___) ___-__-__" autocomplete="tel" inputmode="tel" required>
+        <button class="btn" type="submit">Получить скидку 10%</button>
+        <div class="ok" id="formOk">Спасибо! Открываем WhatsApp с вашей заявкой...</div>
+        <div class="legal">Нажимая кнопку, вы соглашаетесь на обработку персональных данных</div>
+      </form>
+      <div class="trustline">
+        <span><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6l7-3z"/></svg>Гарантия до 10 лет</span>
+        <span><svg viewBox="0 0 24 24"><path d="M3 7h13v10H3zM16 10h4l1 3v4h-5M6 20a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zm12 0a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/></svg>Доставка по всему КЗ</span>
+        <span><svg viewBox="0 0 24 24"><path d="M8 12l3 3 5-6"/><circle cx="12" cy="12" r="9"/></svg>Ответ за 15 минут</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="grid-bg" style="padding-top:0">
+  <div class="wrap">
+    <div class="kicker rv">Частые вопросы<span class="idx">06 / 07</span></div>
+    <h2 class="h2 rv d1">Осталось<br><span class="out">что-то уточнить?</span></h2>
+    <div class="faq rv d1">
+      <div class="qa">
+        <button type="button">Сколько стоит доставка и как быстро привезёте?
+          <span class="pl"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+        </button>
+        <div class="ans"><p>Доставляем в любую точку Казахстана. По Алматы, Астане, Шымкенту и Актобе - обычно в день заказа или на следующий день, в другие города - 2-4 дня транспортной компанией. Стоимость менеджер посчитает вместе со сметой.</p></div>
+      </div>
+      <div class="qa">
+        <button type="button">Как работает гарантия?
+          <span class="pl"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+        </button>
+        <div class="ans"><p>На покрытие ручек - 2 года, на механизм премиум-ручек - до 10 лет, на петли, замки и стопоры - 3 года. Если что-то выйдет из строя по нашей вине - заменим. Достаточно написать в WhatsApp.</p></div>
+      </div>
+      <div class="qa">
+        <button type="button">Можно ли посмотреть и потрогать вживую?
+          <span class="pl"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+        </button>
+        <div class="ans"><p>Да, у нас фирменные магазины в Алматы (Брусиловского 96), Астане (Ермека Серкебаева 36), Шымкенте (Алдиярова 4) и Актобе (Кунаева 167а). Скидка 10% по заявке с сайта действует и в магазине.</p></div>
+      </div>
+      <div class="qa">
+        <button type="button">Помогаете подобрать под интерьер?
+          <span class="pl"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+        </button>
+        <div class="ans"><p>Да. Пришлите фото дверей или дизайн-проект в WhatsApp - подберём ручки, петли, стопоры и замки в единой отделке. Каждая модель есть в 3-7 цветах.</p></div>
+      </div>
+      <div class="qa">
+        <button type="button">Работаете с юрлицами и оптом?
+          <span class="pl"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></span>
+        </button>
+        <div class="ans"><p>Да, работаем по безналичному расчёту с закрывающими документами. Для магазинов дверей, застройщиков и установщиков - отдельные оптовые условия, напишите нам.</p></div>
+      </div>
+    </div>
+
+    <div class="dealer rv" style="margin-top:34px">
+      <div>
+        <h3>Дилерам и оптовикам</h3>
+        <p>Специальные условия для магазинов дверей, строительных компаний и установщиков.</p>
+      </div>
+      <a class="btn" href="https://api.whatsapp.com/send?phone=77055700101&text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D1%8E%D1%82%20%D1%83%D1%81%D0%BB%D0%BE%D0%B2%D0%B8%D1%8F%20%D0%B4%D0%BB%D1%8F%20%D0%B4%D0%B8%D0%BB%D0%B5%D1%80%D0%BE%D0%B2" target="_blank" rel="noopener" style="background:var(--ink);color:var(--paper)">Условия для дилеров</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACTS ============ -->
+<section class="sec-dark">
+  <div class="wrap">
+    <div class="kicker rv">Контакты<span class="idx">07 / 07</span></div>
+    <h2 class="h2 rv d1">Мы уже<br><span class="out">в вашем городе</span></h2>
+    <div class="cities">
+      <div class="city rv"><b>Алматы</b><span>ул. Брусиловского, 96</span></div>
+      <div class="city rv d1"><b>Астана</b><span>ул. Ермека Серкебаева, 36</span></div>
+      <div class="city rv d2"><b>Шымкент</b><span>ул. Алдиярова, 4</span></div>
+      <div class="city rv d3"><b>Актобе</b><span>ул. Кунаева, 167а</span></div>
+    </div>
+    <div class="contact-line rv d2">
+      <a class="soc" href="tel:+77055700101"><svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2Z"/></svg>+7 705 570 01 01</a>
+      <a class="soc" href="https://instagram.com/sutora.kz" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8C2.4 4 4 2.4 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2Zm0 4.7a5.1 5.1 0 1 0 0 10.2 5.1 5.1 0 0 0 0-10.2Zm0 8.4a3.3 3.3 0 1 1 0-6.6 3.3 3.3 0 0 1 0 6.6Zm5.3-8.6a1.2 1.2 0 1 0 0-2.4 1.2 1.2 0 0 0 0 2.4Z"/></svg>@sutora.kz</a>
+      <a class="soc" href="https://t.me/sutora_kz" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M21.9 4.3 19 19.2c-.2 1-.8 1.2-1.6.8l-4.4-3.3-2.2 2.1c-.2.2-.4.4-.9.4l.3-4.6 8.3-7.5c.4-.3-.1-.5-.6-.2L7.7 13.4l-4.4-1.4c-1-.3-1-1 .2-1.4l17-6.6c.8-.3 1.5.2 1.4 1.3Z"/></svg>Telegram</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © <span id="yr"></span> SUTORA / STR SUTORA / ДВЕРНАЯ ФУРНИТУРА В КАЗАХСТАНЕ С 2002 ГОДА
+</footer>
+
+<!-- ============ STICKY BAR ============ -->
+<div class="sticky-bar" id="stickyBar">
+  <a class="sb-wa" href="https://api.whatsapp.com/send?phone=77055700101&text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D0%BE%D0%B4%D0%BE%D0%B1%D1%80%D0%B0%D1%82%D1%8C%20%D1%84%D1%83%D1%80%D0%BD%D0%B8%D1%82%D1%83%D1%80%D1%83" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm4.6 14.1c-.2.6-1.2 1.1-1.7 1.2-.5 0-.5.5-3.4-.8-2.9-1.2-4.8-4.1-4.9-4.3-.1-.2-1.1-1.5-1.1-2.8a3 3 0 0 1 1-2.2c.2-.2.5-.3.7-.3h.5c.2 0 .4-.1.6.4l.8 1.8c.1.2.1.4 0 .5-.4.8-.8.8-.6 1.2a6.8 6.8 0 0 0 3.3 2.9c.3.1.5.1.6-.1.1-.2.6-.7.8-1 .2-.2.4-.2.6-.1.2.1 1.4.7 1.7.8.3.1.5.2.6.4 0 .1 0 .6-.2 1.2Z"/></svg>
+    WhatsApp
+  </a>
+  <a class="sb-call" href="tel:+77055700101">
+    <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.4.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C10.6 21 3 13.4 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.2.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2Z"/></svg>
+    Звонок
+  </a>
+  <a class="sb-lead" href="#lead">Заявка</a>
+</div>
+
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+/* header + progress + sticky + parallax + вращение розетки */
+const hdr = document.getElementById('hdr');
+const bar = document.getElementById('progress');
+const sticky = document.getElementById('stickyBar');
+const heroImg = document.getElementById('heroImg');
+const dialSvg = document.getElementById('dialSvg');
+let ticking = false;
+
+function onScroll(){
+  const y = window.scrollY;
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  bar.style.width = (h > 0 ? (y / h) * 100 : 0) + '%';
+  hdr.classList.toggle('scrolled', y > 30);
+  sticky.classList.toggle('show', y > window.innerHeight * 0.55);
+  if (y < window.innerHeight * 1.2) {
+    if (heroImg) heroImg.style.objectPosition = 'center ' + (35 + y * 0.03) + '%';
+    if (dialSvg) dialSvg.style.transform = 'rotate(' + (y * 0.35) + 'deg)';
+  }
+  ticking = false;
+}
+window.addEventListener('scroll', () => {
+  if (!ticking) { requestAnimationFrame(onScroll); ticking = true; }
+}, { passive: true });
+onScroll();
+
+/* тёмный header над тёмными секциями */
+const darkSecs = document.querySelectorAll('.sec-dark,.stats-band,footer');
+const hdrIO = new IntersectionObserver((en) => {
+  let anyTop = false;
+  en.forEach(e => { if (e.isIntersecting) anyTop = true; });
+  hdr.classList.toggle('on-dark', anyTop);
+}, { rootMargin: '-1% 0px -93% 0px' });
+darkSecs.forEach(s => hdrIO.observe(s));
+
+/* reveal on scroll */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('on');
+      io.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.rv,.rv-l,.rv-r').forEach(el => io.observe(el));
+
+/* блоки со своей анимацией */
+function watch(id, threshold){
+  const el = document.getElementById(id);
+  if (!el) return;
+  new IntersectionObserver((en, obs) => {
+    en.forEach(e => { if (e.isIntersecting) { el.classList.add('on'); obs.disconnect(); } });
+  }, { threshold }).observe(el);
+}
+watch('layersBox', .3);
+watch('cmpBox', .2);
+watch('stepsBox', .25);
+
+/* счётчики */
+function animateCount(el){
+  const target = +el.dataset.count;
+  const dur = 1400;
+  const start = performance.now();
+  function tick(now){
+    const p = Math.min((now - start) / dur, 1);
+    const eased = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.round(target * eased);
+    if (p < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+const cio = new IntersectionObserver((en) => {
+  en.forEach(e => {
+    if (e.isIntersecting) { animateCount(e.target); cio.unobserve(e.target); }
+  });
+}, { threshold: 0.6 });
+document.querySelectorAll('[data-count]').forEach(el => cio.observe(el));
+
+/* отзывы: точки + автопрокрутка */
+const track = document.getElementById('revTrack');
+const dotsBox = document.getElementById('revDots');
+const revs = track.querySelectorAll('.rev');
+revs.forEach((_, i) => {
+  const d = document.createElement('i');
+  if (i === 0) d.classList.add('on');
+  dotsBox.appendChild(d);
+});
+const dots = dotsBox.querySelectorAll('i');
+let revIdx = 0, userTouched = false;
+
+function setDot(i){
+  dots.forEach((d, k) => d.classList.toggle('on', k === i));
+}
+track.addEventListener('scroll', () => {
+  const w = revs[0].offsetWidth + 14;
+  revIdx = Math.round(track.scrollLeft / w);
+  setDot(Math.min(revIdx, dots.length - 1));
+}, { passive: true });
+track.addEventListener('touchstart', () => userTouched = true, { passive: true });
+track.addEventListener('mousedown', () => userTouched = true);
+
+setInterval(() => {
+  if (userTouched) return;
+  const r = track.getBoundingClientRect();
+  if (r.top > window.innerHeight || r.bottom < 0) return;
+  revIdx = (revIdx + 1) % revs.length;
+  const w = revs[0].offsetWidth + 14;
+  track.scrollTo({ left: revIdx * w, behavior: 'smooth' });
+}, 3800);
+
+/* FAQ аккордеон */
+document.querySelectorAll('.qa button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const qa = btn.parentElement;
+    const ans = qa.querySelector('.ans');
+    const isOpen = qa.classList.contains('open');
+    document.querySelectorAll('.qa.open').forEach(o => {
+      o.classList.remove('open');
+      o.querySelector('.ans').style.maxHeight = '0';
+    });
+    if (!isOpen) {
+      qa.classList.add('open');
+      ans.style.maxHeight = ans.scrollHeight + 'px';
+    }
+  });
+});
+
+/* маска телефона */
+const phone = document.getElementById('fPhone');
+phone.addEventListener('input', () => {
+  let d = phone.value.replace(/\D/g, '');
+  if (d.startsWith('8')) d = '7' + d.slice(1);
+  if (!d.startsWith('7')) d = '7' + d;
+  d = d.slice(0, 11);
+  let out = '+7';
+  if (d.length > 1) out += ' (' + d.slice(1, 4);
+  if (d.length >= 4) out += ') ' + d.slice(4, 7);
+  if (d.length >= 7) out += '-' + d.slice(7, 9);
+  if (d.length >= 9) out += '-' + d.slice(9, 11);
+  phone.value = out;
+});
+
+/* заявка -> WhatsApp */
+document.getElementById('leadForm').addEventListener('submit', (ev) => {
+  ev.preventDefault();
+  const name = document.getElementById('fName').value.trim();
+  const tel = phone.value.trim();
+  if (!name || tel.replace(/\D/g, '').length < 11) {
+    phone.style.borderColor = '#e05b5b';
+    setTimeout(() => phone.style.borderColor = '', 1500);
+    return;
+  }
+  const msg = 'Здравствуйте! Хочу оформить заявку со скидкой 10%.\nИмя: ' + name + '\nТелефон: ' + tel;
+  document.getElementById('formOk').style.display = 'block';
+  window.open('https://api.whatsapp.com/send?phone=77055700101&text=' + encodeURIComponent(msg), '_blank');
+});
+</script>
+</body>
+</html>
